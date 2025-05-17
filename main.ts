@@ -1,6 +1,7 @@
 radio.setGroup(23)
 
 let trim = 0
+let canDrive = true
 
 basic.forever(function () {
     let x = input.acceleration(Dimension.X); //left,right
@@ -8,13 +9,11 @@ basic.forever(function () {
     radio.sendValue("x", x); radio.sendValue("y", y); basic.pause(50);
 })
 
-input.onButtonPressed(Button.AB, function() {
-    radio.sendValue("drive", 0)
+input.onButtonPressed(Button.AB, function () {
+    canDrive = !canDrive
+    radio.sendValue("drive", canDrive ? 1 : 0)
 })
 
-input.onLogoEvent(TouchButtonEvent.Pressed, function() {
-    radio.sendValue("drive", 1)
-})
 
 input.onButtonPressed(Button.A, function(){
     trim -= 5
@@ -28,4 +27,8 @@ input.onButtonPressed(Button.B, function () {
     basic.showNumber(trim)
 })
 
-
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    trim = 0
+    radio.sendValue("trim", trim)
+    basic.showNumber(trim)
+})
