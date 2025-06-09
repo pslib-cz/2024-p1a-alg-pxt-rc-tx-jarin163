@@ -1,7 +1,9 @@
+
 radio.setGroup(23)
 
 let trim = 0
 let canDrive = true
+let autoPilot = 0
 
 basic.forever(function () {
     let x = input.acceleration(Dimension.X); //left,right
@@ -16,7 +18,7 @@ input.onButtonPressed(Button.AB, function () {
 })
 
 
-input.onButtonPressed(Button.A, function(){
+input.onButtonPressed(Button.A, function () {
     trim -= 5
     radio.sendValue("trim", trim)
     basic.showNumber(trim)
